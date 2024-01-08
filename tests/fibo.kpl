@@ -1,0 +1,19 @@
+Program fibo;
+Const n = 10;
+
+Var temp : Integer;
+
+Function F(n: Integer) : Integer;
+    Begin
+        If n <= 1 Then F := n
+        Else
+            Begin
+                temp := F(n - 1) + F(n - 2);
+                F := temp;
+            End;
+    End;
+
+Begin
+    Call WriteLn;
+    Call WriteI( F(10));
+End.

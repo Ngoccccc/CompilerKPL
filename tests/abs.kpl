@@ -1,0 +1,8 @@
+Program abs;
+Var result : Integer;
+
+Begin
+    result := -10;
+    result := if result < 0 Return -result Else Return result;
+    Call WriteI(result);
+End.
