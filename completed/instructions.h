@@ -87,6 +87,7 @@ int emitJ(CodeBlock *codeBlock, WORD q);
 int emitFJ(CodeBlock *codeBlock, WORD q);
 int emitHL(CodeBlock *codeBlock);
 int emitST(CodeBlock *codeBlock);
+int emitSTT(CodeBlock *codeBlock, WORD q);
 int emitCALL(CodeBlock *codeBlock, WORD p, WORD q);
 int emitEP(CodeBlock *codeBlock);
 int emitEF(CodeBlock *codeBlock);
