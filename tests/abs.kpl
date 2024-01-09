@@ -3,6 +3,6 @@ Var result : Integer;
 
 Begin
     result := -10;
-    result := if result < 0 Return -result Else Return result;
+    result := if result < 0 Then -result Else result;
     Call WriteI(result);
 End.

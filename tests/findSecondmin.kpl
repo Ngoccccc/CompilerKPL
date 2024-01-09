@@ -1,0 +1,41 @@
+Program bai1;
+
+TYPE T = INTEGER;
+
+VAR  A : ARRAY(. 3 .) OF INTEGER;
+
+PROCEDURE OUTPUT;
+VAR I : INTEGER;
+    secondMin : INTEGER;
+
+BEGIN
+    A(.0.) := 2;
+    A(.1.) := 2;
+    A(.2.) := 2;
+    secondMin := A(.2.);
+     BEGIN
+        IF A(.0.) < A(.1.)  then
+            begin
+                if A(.0.) > A(.2.) then secondMin := A(.0.);
+            end;
+        IF A(.0.) > A(.1.)  then
+            begin
+                if A(.0.) < A(.2.) then secondMin := A(.0.);
+            end;
+        if  A(.1.) < A(.0.)  then
+            begin
+                if A(.1.) > A(.2.) then secondMin := A(.1.);
+            end;
+        if  A(.1.) > A(.0.)  then
+            begin
+                if A(.1.) < A(.2.) then secondMin := A(.1.);
+            end;
+       CALL WRITEI(secondMin);
+       CALL WRITELN;
+     END
+END;
+
+
+BEGIN
+    CALL OUTPUT;
+END.
