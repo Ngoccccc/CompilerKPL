@@ -497,7 +497,7 @@ void compileAssignSt(void)
     eat(SB_COMMA);
     if (lookAhead->tokenType != TK_IDENT)
     {
-      // error(ERR_VARIABLE, lookAhead->lineNo, lookAhead->colNo);
+      error(ERR_VARIABLE, lookAhead->lineNo, lookAhead->colNo);
     }
     counterForVariables++;
     lvalueType = (Type **)realloc(lvalueType, counterForVariables * sizeof(Type));
@@ -513,18 +513,19 @@ void compileAssignSt(void)
     eat(SB_COMMA);
     counterForExpression++;
     expType = compileExpression();
-    if (lvalueType[counterForExpression - 1] != NULL)
-    {
-      checkTypeEquality(lvalueType[counterForExpression - 1], expType);
-    }
+    if (counterForVariables > counterForExpression)
+      if (lvalueType[counterForExpression - 1] != NULL)
+      {
+        checkTypeEquality(lvalueType[counterForExpression - 1], expType);
+      }
   }
   if (counterForVariables > counterForExpression)
   {
-    // error(ERR_MISS_RVALUE, lookAhead->lineNo, lookAhead->colNo);
+    error(ERR_MISS_RVALUE, lookAhead->lineNo, lookAhead->colNo);
   }
   if (counterForVariables < counterForExpression)
   {
-    // error(ERR_MISS_LVALUE, lookAhead->lineNo, lookAhead->colNo);
+    error(ERR_MISS_LVALUE, lookAhead->lineNo, lookAhead->colNo);
   }
   genSTT(counterForVariables);
 }
@@ -792,7 +793,7 @@ Type *compileExpression(void)
     genNEG();
     break;
   case KW_IF:
-    type = compileIfReturn();
+    type = compileIfThen();
     break;
   default:
     type = compileExpression2();
@@ -800,7 +801,7 @@ Type *compileExpression(void)
   return type;
 }
 
-Type *compileIfReturn(void)
+Type *compileIfThen(void)
 {
   Type *type;
   Instruction *fjInstruction;
@@ -808,7 +809,7 @@ Type *compileIfReturn(void)
 
   eat(KW_IF);
   compileCondition();
-  eat(KW_RETURN);
+  eat(KW_THEN);
 
   fjInstruction = genFJ(DC_VALUE);
   type = compileExpression();
@@ -817,7 +818,6 @@ Type *compileIfReturn(void)
     jInstruction = genJ(DC_VALUE);
     updateFJ(fjInstruction, getCurrentCodeAddress());
     eat(KW_ELSE);
-    eat(KW_RETURN);
     type = compileExpression();
     updateJ(jInstruction, getCurrentCodeAddress());
   }

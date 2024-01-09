@@ -53,7 +53,7 @@ Type *compileTerm(void);
 Type *compileTerm2(Type *argType2);
 Type *compileFactor(void);
 Type *compileIndexes(Type *arrayType);
-Type *compileIfReturn(void);
+Type *compileIfThen(void);
 
 int compile(char *fileName);
 
